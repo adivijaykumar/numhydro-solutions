@@ -1,0 +1,302 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage[makeroom]{cancel}
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bes}{\begin{equation*}}
+\newcommand{\ees}{\end{equation*}}
+\newcommand{\bea}{\begin{flalign*}}
+\newcommand{\eea}{\end{flalign*}}
+
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \subsection{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{February 12, 2014}
+\newcommand{\hmwkClass}{Calculus}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Isaac Newton}
+\newcommand{\hmwkAuthorName}{\textbf{Aditya Vijaykumar}}
+
+%
+% Title Page
+%
+
+\title{
+    %\vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate\ }\\
+%    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\section{\underline{Numerical Models}}
+
+%\pagebreak
+
+\begin{homeworkProblem}[1]
+    \textbf{The Conservation Laws}
+    
+    \begin{enumerate}
+    	\item The problem is to find orthonormal tetrad $ e_{(m)}^a $ \textit{ie},
+    	\begin{equation}\label{key}
+    	g^{ab} =  e_{(m)}^a  e_{(n)}^b \delta^{mn}
+    	\end{equation}
+    	for Minkowski spacetime in both Cartesian and spherical coordinates.
+    \end{enumerate}
+\end{homeworkProblem}
+
+
+
+\begin{homeworkProblem}[2]
+	\textbf{The perfect fluid}
+	\begin{enumerate}
+	\item We have, 
+	\begin{equation}\label{key}
+		T_{ab} = \rho_0 h u_a u_b +  p g_{ab}
+		\end{equation}
+	A generic tensor $ T_{ab} $ in four dimensions would have 16 independent degrees of freedom. But we notice that $ T_{ab} $ here is symmetric under the exchange $ a \rightarrow b $ and hence this leaves us with 10 independent degrees of freedom. Furthermore, we have the constraint $ \grad_a T^{ab} = 0 $ which gives us 4 additional constraints reducing the independent degrees of freedom to 6. Then, using the the equation of state $ p = p(\rho_0 , \epsilon) $, we can eliminate one more degree of freedom, and hence $ T_{ab} $ has five degrees of freedom.
+	\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[3]
+	\textbf{Action Principles}
+	
+\end{homeworkProblem}
+
+\newpage
+\section{\underline{Numerical Theory}}
+\begin{homeworkProblem}[1]
+	\textbf{Finite Differencing}
+	\begin{enumerate}
+		\item Using Taylor Expansion,
+		\begin{align}\label{key}
+		 \eval{\dv{f}{x}}_{x=x_0} & =  \dfrac{\cancel{f(x_0) }+ f'(x_0) \Delta x  + \order{\Delta x}^2 - \cancel{f(x_0) }}{\Delta x } \\
+		 &= f'(x_0) + \order{\Delta x}
+		\end{align}
+		
+		\item \textit{There is a typo in the question : $ f(x_0 - \Delta x) $ and not $ f(x_0 - \Delta) $} 
+		
+		Again, using Taylor expansion,
+		\begin{align}\label{key}
+		\eval{\dv{f}{x}}_{x=x_0} & =  \dfrac{\cancel{f(x_0) }+ f'(x_0) \Delta x + \cancel{\dfrac{f''(x_0) (\Delta x)^2}{2}}  + \order{\Delta x}^3 - \cancel{f(x_0)} + f'(x_0 ) \Delta x - \cancel{\dfrac{f''(x_0) (\Delta x)^2}{2}} + \order{\Delta x}^3 }{2\Delta x } \\
+		&= f'(x_0) + \order{\Delta x}^2
+		\end{align}
+		
+		
+		\item Let's Taylor expand the two sides,
+		\begin{align}\label{key}
+		\dfrac{y(x_0 + \Delta x) - y(x_0)}{\Delta x} + \order{\Delta x} &=  F(x_0, y(x_0)) +\order{\Delta x}\\
+		\implies y(x_0 + \Delta x) &= y(x_0) + \Delta x F(x_0, y(x_0))  + \order{\Delta x}^2
+		\end{align}
+		
+		Where, in the second step, we have multiplied by $ \Delta x $ and rearranged the terms.
+		
+		\item 
+		
+		\item The advection equation for $ q = q(x,t) $ with constant velocity $ v $ is,
+		\begin{equation}\label{advection}
+		\partial_t q - v \partial_x q = 0 
+		\end{equation}
+		We can expand $ q $ about $ x_0 $ and $ t_0 $ as follows,
+		\begin{equation}\label{key}
+		\partial_t q = \dfrac{q(x_0,t_0 + \Delta t) - q(x_0, t_0)}{\Delta t} + \order{\Delta t, \Delta x} \qq{and} \partial_x q = \dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} +  \order{\Delta t, \Delta x}
+		\end{equation}
+		Now substituting these into Eq. \ref{advection},
+		\begin{align}\label{key}
+		\dfrac{q(x_0,t_0 + \Delta t) - q(x_0, t_0)}{\Delta t} - v\dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} + \order{\Delta t, \Delta x}  = 0 \\
+		\implies q(x_0,t_0 + \Delta t) =  q(x_0, t_0) + v\Delta t\dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} + \order{\Delta t, \Delta x}
+		\end{align}
+		\end{enumerate}
+	
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[2]
+	\textbf{Modified Equation}
+	\begin{enumerate}
+		\item The first order upwind scheme is given by,
+		\begin{equation}\label{key}
+		q(x_0, t_0 + \Delta t) = q(x_0, t_0) + \dfrac{v \Delta t}{\Delta x}\qty[q(x_0 - \Delta x,t_0 ) - q(x_0, t_0)]
+		\end{equation}
+		We Taylor-expand all terms that have $ \Delta $'s in them,
+		\begin{align}\label{key}
+		\cancel{q(x_0, t_0)}  +  \partial_t q \ \Delta t &= \cancel{q(x_0, t_0)} + \dfrac{v \Delta t}{\Delta x}\qty[\cancel{q(x_0,t_0 ) }- \partial_x q \ \Delta x  + \partial_{xx} q \ \dfrac{\Delta x^2}{2}-\cancel{ q(x_0, t_0)}]\\
+		\partial_t q   &= \dfrac{v }{\Delta x}\qty[- \partial_x q \ \Delta x  + \partial_{xx} q \ \dfrac{\Delta x^2}{2}] \\
+		\partial_t q + v \partial_x q &=\dfrac{v \Delta x}{2} \qty(1 - \dfrac{v \Delta t}{\Delta x}) \partial_{xx} q,
+		\end{align}
+		where is going from the first to the second step, we have equated the coefficients of $ \Delta t $ on both sides of the equation. The term $  \beta =  \dfrac{v \Delta x}{2} \qty(1 - \dfrac{v \Delta t}{\Delta x}) $ acts as an effective numerical viscosity, and hence  \textit{diffusing }the numerics leading to numerical errors.
+		
+		\item The violation of the CFL condition leads to the viscosity $ \beta $ turning negative, hence the \textcolor{red}{solution will grow exponentially and will blow up}. 
+		
+		\item Substituting $ f(x-vt) = q $ in the advection equation and using the chain rule of differentiation,
+		\begin{equation}\label{key}
+		-v \ q'(\eta) + v q'(\eta) = 0
+		\end{equation}
+		Hence, all $ q(\eta) = f(x-vt) $ is a solution of the advection equation.
+		
+		\item  Substituting $ f(x/t) = q(\xi) $ in the advection equation and using the chain rule of differentiation,
+		\begin{equation}\label{key}
+		-\dfrac{x}{t^2} q'(\xi) + \dfrac{v}{t} q'(\xi) = 0 \implies \dfrac{x}{t} = \xi = v
+		\end{equation}
+		
+		\item Substituting $ f\qty(\dfrac{x-vt}{t^\alpha}) = q(\eta) $ in the modified equation and using the chain rule of differentiation,
+		\begin{align}\label{key}
+		\qty(-\dfrac{\alpha x}{t^{\alpha + 1}} + \dfrac{v (\alpha - 1)}{t^\alpha} ) q'(\eta)  + \dfrac{v}{t^\alpha} q'(\eta) = \beta \dfrac{v^2}{t^{2\alpha}} q''(\eta) \\
+		\implies - \alpha \dfrac{x-vt}{t^{\alpha + 1}} q' = \beta \dfrac{v^2}{t^{2\alpha}} q'' \implies  \beta \dfrac{v^2}{t^{2\alpha}} q'' + \alpha \dfrac{\eta}{t} q' = 0
+		\end{align}
+		
+		\textcolor{red}{Write in terms of error functions}
+		 
+		\item  ifhas
+	\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item In Part 3 of Problem 2, we proved that $ q = f(x - vt) $ is always a solution to the advection equation. Hence $ q (x,t) = \exp\qty[i \gamma (x-vt)] $ is a solution to the advection equation. As we are given the initial data $ q(x,t) = \exp(i \ell x ) $, we conclude that $ \gamma = \ell $ for this problem. 
+		
+		\item Substituting the form of the solution into the second order difference formula,
+		\begin{align}\label{partialq2cd}
+		\partial_x q &= \dfrac{\exp[i \ell (x_k - v t)]}{2 \Delta x} \qty{\exp(i \ell \Delta x) - \exp( -i \ell \Delta x)} \\
+		&=  \dfrac{\exp[i \ell (x_k - v t)]}{\Delta x} i \sin(  \ell \Delta x)
+		\end{align} 
+		
+		\item Substituting $ q_e $ and $ q_{m,\Delta x} $,
+		\begin{equation}
+		\dfrac{q_e(x,t) - q_{m,\Delta x} (x,t)}{q_e(x,t)} = 1 - \exp[i \ell (v - v_m(\ell))T]
+		\end{equation}
+		Taking the limit $ \Delta x \rightarrow 0 $ and retaining only upto next-to-leading order,
+		\begin{align}
+		\dfrac{q_e(x,t) - q_{m,\Delta x} (x,t)}{q_e(x,t)} &\approx - i \sin[ \ell (v - v_m(l))T] \\
+		\therefore e_m(\ell) =  \abs{\dfrac{q_e(x,t) - q_{m,\Delta x} (x,t)}{q_e(x,t)}} &\approx \ell (v - v_m(l))T
+		\end{align}
+		
+		\item Substituting the expression for $ v_m $ in the result of the previous part,
+		\begin{equation}\label{key}
+		e_m(l) = \ell v  T \qty(1 - \dfrac{\sin(\ell \Delta x)}{\ell \Delta x}) \approx  \ell v  T \dfrac{(l\Delta x)^2}{6}
+		\end{equation}
+	\end{enumerate}
+
+\end{homeworkProblem}
+
+\end{document}
