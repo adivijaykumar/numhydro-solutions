@@ -147,42 +147,7 @@
 
 \maketitle
 
-\section{\underline{Numerical Models}}
 
-%\pagebreak
-
-\begin{homeworkProblem}[1]
-    \textbf{The Conservation Laws}
-    
-    \begin{enumerate}
-    	\item The problem is to find orthonormal tetrad $ e_{(m)}^a $ \textit{ie},
-    	\begin{equation}\label{key}
-    	g^{ab} =  e_{(m)}^a  e_{(n)}^b \delta^{mn}
-    	\end{equation}
-    	for Minkowski spacetime in both Cartesian and spherical coordinates.
-    \end{enumerate}
-\end{homeworkProblem}
-
-
-
-\begin{homeworkProblem}[2]
-	\textbf{The perfect fluid}
-	\begin{enumerate}
-	\item We have, 
-	\begin{equation}\label{key}
-		T_{ab} = \rho_0 h u_a u_b +  p g_{ab}
-		\end{equation}
-	A generic tensor $ T_{ab} $ in four dimensions would have 16 independent degrees of freedom. But we notice that $ T_{ab} $ here is symmetric under the exchange $ a \rightarrow b $ and hence this leaves us with 10 independent degrees of freedom. Furthermore, we have the constraint $ \grad_a T^{ab} = 0 $ which gives us 4 additional constraints reducing the independent degrees of freedom to 6. Then, using the the equation of state $ p = p(\rho_0 , \epsilon) $, we can eliminate one more degree of freedom, and hence $ T_{ab} $ has five degrees of freedom.
-	\end{enumerate}
-\end{homeworkProblem}
-
-
-\begin{homeworkProblem}[3]
-	\textbf{Action Principles}
-	
-\end{homeworkProblem}
-
-\newpage
 \section{\underline{Numerical Theory}}
 \begin{homeworkProblem}[1]
 	\textbf{Finite Differencing}
@@ -272,6 +237,7 @@
 
 
 \begin{homeworkProblem}
+	\textbf{Phase errors and neutron stars}
 	\begin{enumerate}
 		\item In Part 3 of Problem 2, we proved that $ q = f(x - vt) $ is always a solution to the advection equation. Hence $ q (x,t) = \exp\qty[i \gamma (x-vt)] $ is a solution to the advection equation. As we are given the initial data $ q(x,t) = \exp(i \ell x ) $, we conclude that $ \gamma = \ell $ for this problem. 
 		
@@ -299,4 +265,103 @@
 
 \end{homeworkProblem}
 
+\begin{homeworkProblem}[4]
+	\textbf{Vacuum part 1}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[5]
+	\textbf{Vacuum part 2}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[6]
+	\textbf{Well Balancing}
+	\begin{enumerate}
+		\item This can be easily seen by substituting the form $ q = Ce^x $ in the advection equation with source.
+		
+		\item The advection equation with source is given by,
+		\begin{equation}\label{key}
+		\partial_t q + \partial_x q = q
+		\end{equation}
+		Using forward differencing for $ \partial_t q  $ and backward differencing for $ \partial_x q $ we have,
+		\begin{align}\label{key}
+		\dfrac{q(x_0, t_0 + \Delta t) - q(x_0, t_0)}{\Delta t} + \dfrac{q(x_0- \Delta x, t_0) - q(x_0, t_0)}{- \Delta x} = q(x_0, t_0) \\
+		\implies q(x_0, t_0 + \Delta t) = q(x_0.t_0) - \dfrac{\Delta t}{\Delta x} \qty(q(x_0,t_0) - q(x_0 - \Delta x, t_0)) + \Delta t q(x_0,t_0)
+		\end{align}
+		
+		\item 
+	\end{enumerate}
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[7]
+	\textbf{Shocks}
+	\begin{enumerate}
+		\item 
+		
+		\item 
+		\begin{equation}\label{key}
+		\partial_t (q^n) + \dfrac{n}{n+1} \partial_x (q^{n+1} ) = 0 \implies n q^{n-1} \partial_t q + n  q^n \partial_x q = 0 \implies \partial_t q + q \partial_q q = 0 \ ,
+		\end{equation}
+		which is the Burgers equation.
+		
+		\item ds
+	\end{enumerate}
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[8]
+	\textbf{Telescoping}
+	\begin{enumerate}
+		\item The first order upwind scheme for  $ \partial_t q + v \partial_x q = 0 $ is given by,
+		\begin{equation}\label{key}
+		q(x_0, t_0 + \Delta t) = q(x_0, t_0) + \dfrac{v \Delta t}{\Delta x}\qty[q(x_0 - \Delta x,t_0 ) - q(x_0, t_0)]
+		\end{equation}
+		Our equation $ \partial_t q + \partial_x f(q) = 0 $ differs in the $ \partial_x  $ part, and hence one would have to discretize $ f(q) $ in $  x $. Using the definitions given in the problem, one can write,
+		\begin{equation}\label{key}
+		q^{n+1}_i = q^n_i = \dfrac{\Delta t}{\Delta x} \qty(f^n_{i - 1/2} - f^n_{i+ 1/2})
+		\end{equation}
+		
+		\item 
+	\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[9]
+	\textbf{Monotonicity}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[10]
+	\textbf{Stiffness}
+	\begin{enumerate}
+		\item Given,
+		\begin{equation}\label{key}
+		\dv{q}{t} = - \dfrac{1}{\eta} q
+		\end{equation}
+		Using Euler method,
+		\begin{equation}\label{eulerstiff}
+		\dfrac{q^{n+1} - q^n}{\Delta t} = -\dfrac{1}{\eta} q^n \implies q^{n+1 } = \qty(1 - \dfrac{\Delta t}{\eta}) q^n
+		\end{equation}
+		
+		\item The general solution of the ODE is $ q(t) = C e^{-t/\eta} $. If $ q(0) = 1 $, $ q(t ) = e^{-t/\eta}  \implies \lim\limits_{t \rightarrow \infty} q(t) = 0$.
+		
+		\item From the form in eq. \ref{eulerstiff}, we can write an ansatz solution for $ q^n $ to be,
+		\begin{equation}\label{key}
+		q^N = C \qty(1 - \dfrac{\Delta t}{\eta})^N \ .
+		\end{equation}
+		The above form of the equation suggests that $ \lim\limits_{N \rightarrow \infty}q^N = 0 \iff \Delta t \le \eta$, meaning for all other values of the timestep $ \Delta t $, the solution will blow up and go to infinity for large time.
+		
+		\item Applying backward difference to the original ODE gives,
+		\begin{equation}\label{key}
+		\dfrac{q^n - q^{n-1}}{\Delta t} = - \dfrac{1}{\eta}q^n \implies q^n = \qty(1 + \dfrac{\Delta t}{\eta})^{-1} q^{n-1}
+		\end{equation}
+		An ansatz solution for the above discretized form is,
+		\begin{equation}\label{key}
+		q^N = C \qty(1 + \dfrac{\Delta t}{\eta})^{-N} \ .
+		\end{equation}
+		As one can see, $ \lim\limits_{N \rightarrow \infty}q^N = 0 \qq{,} \forall \Delta t $.
+	\end{enumerate}
+\end{homeworkProblem}
 \end{document}
