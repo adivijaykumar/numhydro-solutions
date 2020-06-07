@@ -28,7 +28,7 @@
 
 \pagestyle{fancy}
 \lhead{\hmwkAuthorName}
-\chead{\hmwkClass\ : \hmwkTitle}
+\chead{\hmwkClass\  \hmwkTitle}
 \rhead{\firstxmark}
 \lfoot{\lastxmark}
 \cfoot{\thepage}
@@ -95,9 +95,9 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#2}
-\newcommand{\hmwkDueDate}{February 12, 2014}
-\newcommand{\hmwkClass}{Calculus}
+\newcommand{\hmwkTitle}{}
+\newcommand{\hmwkDueDate}{ICTS Summer School on Gravitational-wave Astronomy}
+\newcommand{\hmwkClass}{Numerical Hydrodynamics - Solutions}
 \newcommand{\hmwkClassTime}{}
 \newcommand{\hmwkClassInstructor}{Professor Isaac Newton}
 \newcommand{\hmwkAuthorName}{\textbf{Aditya Vijaykumar}}
@@ -108,7 +108,7 @@
 
 \title{
     %\vspace{2in}
-    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \textmd{\textbf{\hmwkClass\ \hmwkTitle}}\\
     \normalsize\vspace{0.1in}\small{\hmwkDueDate\ }\\
 %    \vspace{3in}
 }
@@ -175,7 +175,15 @@
 		
 		Where, in the second step, we have multiplied by $ \Delta x $ and rearranged the terms.
 		
-		\item 
+		\item Integrating the differential equation between $ x_0 $ and $ x_0 + \Delta x $, we get,
+		\begin{equation}\label{key}
+		y(x_0 + \Delta x) - y(x_0) = \int_{x_0}^{x_0 + \Delta x} F(x,y) \dd x
+		\end{equation}
+		In the infinitesimal limit, we assume that $ F(x,y) $ within the integration limits $ \approx F(x_0, y(x_0)) $. Hence,
+		\begin{equation}\label{key}
+		y(x_0 + \Delta x) - y(x_0) = F(x,y) \Delta x \dd x \qq{,}
+		\end{equation}
+		which is the Euler method.
 		
 		\item The advection equation for $ q = q(x,t) $ with constant velocity $ v $ is,
 		\begin{equation}\label{advection}
@@ -190,6 +198,8 @@
 		\dfrac{q(x_0,t_0 + \Delta t) - q(x_0, t_0)}{\Delta t} - v\dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} + \order{\Delta t, \Delta x}  = 0 \\
 		\implies q(x_0,t_0 + \Delta t) =  q(x_0, t_0) + v\Delta t\dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} + \order{\Delta t, \Delta x}
 		\end{align}
+		
+		\item 
 		\end{enumerate}
 	
 \end{homeworkProblem}
@@ -210,7 +220,7 @@
 		\end{align}
 		where is going from the first to the second step, we have equated the coefficients of $ \Delta t $ on both sides of the equation. The term $  \beta =  \dfrac{v \Delta x}{2} \qty(1 - \dfrac{v \Delta t}{\Delta x}) $ acts as an effective numerical viscosity, and hence  \textit{diffusing }the numerics leading to numerical errors.
 		
-		\item The violation of the CFL condition leads to the viscosity $ \beta $ turning negative, hence the \textcolor{red}{solution will grow exponentially and will blow up}. 
+		\item The violation of the CFL condition leads to the viscosity $ \beta $ turning negative. In a physical situation, this would be lead to the \textit{opposite} of diffusion as we know it; this means that there will be energy added into the system, and smooth features in the solution will eventually go to sharp features and giving infinities.
 		
 		\item Substituting $ f(x-vt) = q $ in the advection equation and using the chain rule of differentiation,
 		\begin{equation}\label{key}
@@ -228,10 +238,19 @@
 		\qty(-\dfrac{\alpha x}{t^{\alpha + 1}} + \dfrac{v (\alpha - 1)}{t^\alpha} ) q'(\eta)  + \dfrac{v}{t^\alpha} q'(\eta) = \beta \dfrac{v^2}{t^{2\alpha}} q''(\eta) \\
 		\implies - \alpha \dfrac{x-vt}{t^{\alpha + 1}} q' = \beta \dfrac{v^2}{t^{2\alpha}} q'' \implies  \beta \dfrac{v^2}{t^{2\alpha}} q'' + \alpha \dfrac{\eta}{t} q' = 0
 		\end{align}
-		
-		\textcolor{red}{Write in terms of error functions}
-		 
-		\item  ifhas
+
+		For $  \alpha = 1/2$, the equation,
+		\begin{equation}\label{key}
+		\beta\dfrac{v^2}{t} q'' + \dfrac{\eta}{2t} q' = 0 \implies \beta{v^2} q'' + \dfrac{\eta}{2} q' = 0  \qq{as}  t>0
+		\end{equation}
+		Assuming $ q'(\eta)  = h(\eta) $,
+		\begin{align}\label{key}
+		\beta{v^2} h' + \dfrac{\eta}{2} h = 0  &\implies h(\eta) = q'(\eta) = C_1 \exp(-\dfrac{\eta}{2\beta v^2}) \\
+		& \implies q(\eta ) = C_1 \int \dd \eta \exp(-\dfrac{\eta}{2\beta v^2}) \qq{.} 
+		\end{align}
+		The Gaussian integral is in fact the error function.
+		\item  
+		\item 
 	\end{enumerate}
 \end{homeworkProblem}
 
@@ -259,8 +278,27 @@
 		
 		\item Substituting the expression for $ v_m $ in the result of the previous part,
 		\begin{equation}\label{key}
-		e_m(l) = \ell v  T \qty(1 - \dfrac{\sin(\ell \Delta x)}{\ell \Delta x}) \approx  \ell v  T \dfrac{(l\Delta x)^2}{6}
+		e_{\mathrm{2cd}}(l) = \ell v  T \qty(1 - \dfrac{\sin(\ell \Delta x)}{\ell \Delta x}) \approx  \ell v  T \dfrac{(l\Delta x)^2}{6}
 		\end{equation}
+		
+		\item  Given $ p = \dfrac{2\pi}{\ell \Delta x} $ and $ \nu = \dfrac{\ell v T}{2 \pi} $ , so $ \ell \Delta x = \dfrac{2 \pi}{p} $ and $ T = \dfrac{2\pi \nu}{\ell v} $. Substituting these in the expression for $ e_{\mathrm{2cd}}(l) $, we get the required result,
+		\begin{equation}\label{key}
+		e_{\mathrm{2cd}} =  \dfrac{\pi \nu}{3} \qty(\dfrac{2\pi}{p})^2 \qq{.}
+		\end{equation}
+		We also get the minimum points per wavelength for a required phase error to be,
+		\begin{equation}\label{key}
+		p_{\mathrm{2cd}} = 2 \pi \sqrt{\dfrac{\nu \pi}{3 e_{\mathrm{2cd}}}}
+		\end{equation}
+		\item  Substituting $ v =  $ for $ \ell = 2 $ (corresponding to the fundamental mode)
+		
+		\item Subsituting $ e_\mathrm{2cd} = 0.01 $ (1\% error) and $ \nu \approx 30  $ in the expression for $ p_\mathrm{2cd} $, we get $ p_\mathrm{2cd} \approx 350 .$ 
+		
+		\item $ \Delta x = \dfrac{2\pi}{\ell p} $
+		
+		\item 
+		
+		\item 
+		
 	\end{enumerate}
 
 \end{homeworkProblem}
@@ -271,8 +309,20 @@
 
 \begin{homeworkProblem}[5]
 	\textbf{Vacuum part 2}
+	\begin{enumerate}
+		\item The conservation law is,
+		\begin{equation}\label{key}
+		\pdv{\vb{q}}{t}+ \pdv{ \vb{f}(\vb{q})}{x} = 0 \implies \pdv{\vb{q}}{t}+ \pdv{ \vb{f}(\vb{q})}{\vb{q}} \pdv{\vb{q}}{x} = 0 \implies \pdv{\vb{q}}{t}+ J \pdv{\vb{q}}{x} = 0 \qq{.}
+		\end{equation}
+		where $ J = \pdv{ \vb{f}(\vb{q})}{\vb{q}}  $. Substituting $ S^{-1} \vb{w} =  \vb{q} $ subject to $ S J S^{-1} = \Lambda $, where $ \Lambda $ is the diagonal matrix containing the eigenvalues of $ J $,
+		\begin{equation}\label{key}
+		S^{-1}\pdv{\vb{w}}{t}+ J S^{-1}\pdv{\vb{w}}{x} = 0  \implies \pdv{\vb{w}}{t}+ S J S^{-1}\pdv{\vb{w}}{x} = 0  \implies \pdv{\vb{w}}{t}+ \Lambda\pdv{\vb{w}}{x} = 0 
+		\end{equation}
+		
+		\item 
+	\end{enumerate}
 \end{homeworkProblem}
-
+ 
 \begin{homeworkProblem}[6]
 	\textbf{Well Balancing}
 	\begin{enumerate}
