@@ -199,7 +199,7 @@
 		\implies q(x_0,t_0 + \Delta t) =  q(x_0, t_0) + v\Delta t\dfrac{q(x_0 + \Delta x,t_0  ) - q(x_0, t_0)}{\Delta x} + \order{\Delta t, \Delta x}
 		\end{align}
 		
-		\item 
+		\item We note that if there has to be communication between points that do not satisfy the CFL condition, the velocity required would be more than the speed of propagation $ v $. This makes the scheme unstable, creating unphysical infinities.
 		\end{enumerate}
 	
 \end{homeworkProblem}
@@ -289,15 +289,27 @@
 		\begin{equation}\label{key}
 		p_{\mathrm{2cd}} = 2 \pi \sqrt{\dfrac{\nu \pi}{3 e_{\mathrm{2cd}}}}
 		\end{equation}
-		\item  Substituting $ v =  $ for $ \ell = 2 $ (corresponding to the fundamental mode)
+		\item  We know that $ \ell = \dfrac{2 \pi}{\lambda} $ and that $ f = \dfrac{v}{\lambda} $ where $ f $ is the frequency. This means that $\nu = \dfrac{vlT}{2 \pi } = fT \approx 30  $, where we have substituted $ f = 30  $ kHz and $ T = 10 $ ms. 
 		
 		\item Subsituting $ e_\mathrm{2cd} = 0.01 $ (1\% error) and $ \nu \approx 30  $ in the expression for $ p_\mathrm{2cd} $, we get $ p_\mathrm{2cd} \approx 350 .$ 
 		
-		\item $ \Delta x = \dfrac{2\pi}{\ell p} $
+		\item $ \Delta x = \dfrac{2\pi}{\ell p} =  \dfrac{\lambda}{p} = \dfrac{25 \text{ km}}{350} \approx 70 \text{ m}$.
 		
-		\item 
+		\item If $ e_\mathrm{2cd} = 0.1 $ (10\% error), $ p_\mathrm{2cd} \approx 110  $
+		and hence $ \Delta x \approx  220 $.
 		
-		\item 
+		\item As we did in Part 2, we substitute $ q(x,t) = \exp[i \ell(x-vt)] $ in the expression for the fourth order central differencing. We get,
+		\begin{align}\label{key}
+		\partial_x q &= \dfrac{-\exp[i \ell (x-vt)]}{12 \Delta x} \qty{-\exp(2 i \ell \Delta x ) + 8 \exp(i \ell \Delta x ) - 8 \exp(- i \ell \Delta x )   + \exp(- 2 i \ell \Delta x ) } \\
+		&= \dfrac{-\exp[i \ell (x-vt)]}{12 \Delta x} \qty{-\exp(2 i \ell \Delta x ) + 8 \exp(i \ell \Delta x ) - 8 \exp(- i \ell \Delta x )   + \exp(- 2 i \ell \Delta x ) } \\ 
+		&= \dfrac{\exp[i \ell (x-vt)]}{6 \Delta x} (i ) \qty{8 \sin( \ell \Delta x) - \sin(2 \ell \Delta x)  }\\
+		\therefore v_{\mathrm{4cd}} &= \qty{8 \sin( \ell \Delta x) - \sin(2 \ell \Delta x)} \dfrac{v}{6 \ell \Delta x}
+		\end{align}
+		
+		Again, making the small $ \ell  $ approximation, we get,
+		\begin{equation}\label{key}
+		v_{\mathrm{4cd}} = v \qty(1 - \dfrac{\qty{\ell \Delta x}^4}{30}) \implies e_{\mathrm{4cd}} = \ell v T \dfrac{\qty{\ell \Delta x}^4}{30} = \dfrac{\pi \nu}{15} \qty(\dfrac{2\pi}{p})^4
+		\end{equation}
 		
 	\end{enumerate}
 
@@ -338,7 +350,34 @@
 		\implies q(x_0, t_0 + \Delta t) = q(x_0.t_0) - \dfrac{\Delta t}{\Delta x} \qty(q(x_0,t_0) - q(x_0 - \Delta x, t_0)) + \Delta t q(x_0,t_0)
 		\end{align}
 		
-		\item 
+		\item For equilibrium solutions within this scheme, $ q(x, t_1) = q(x,t_2) = q(x,\bar{t}) $, $ \forall t_1, t_2 $. Applying this requirement to the scheme,
+		\begin{equation}\label{key}
+		\cancel{q(x_0, \bar{t})} =  \cancel{q(x_0, \bar{t}) }-  \dfrac{\Delta t}{\Delta x} \qty(q(x_0,\bar{t}) - q(x_0 - \Delta x, \bar{t})) + \Delta t q(x_0,\bar{t})
+		\end{equation}
+		This translates to the requirement (for small $ \Delta x $), 
+		\begin{equation}\label{key}
+		\dfrac{q(x_0,\bar{t}) - q(x_0 - \Delta x, \bar{t})}{\Delta x}  = q'(x_0, t_0) = q(x_0,\bar{t}) \qq{,}
+		\end{equation}
+		which is not true in general. Hence this scheme does not preserve equilibrium.
+		
+		We also see the term $ q(x_0,t_0) - q(x_0 - \Delta x, t_0) $ is  $ \order{\Delta x}  $ and hence the next term in the scheme would be $ \order{\Delta x \Delta t} $
+		
+		\item  Consider the scheme,
+		\begin{equation}\label{key}
+		q(x_0,t_0+ \Delta t) =  q(x_0, t_0) - \dfrac{\Delta t}{\Delta x} \qty(q(x_0,t_0) - e^{\Delta x} q (x_0 - \Delta x, t_0)) \qq{.}
+		\end{equation}
+		Applying the equilibrium requirement translates to,
+		\begin{equation}\label{key}
+		q(x_0, t_0) = e^{\Delta x} q(x_0 - \Delta x, t_0) \qq{,}
+		\end{equation}
+		which is satisfied for small $ \Delta x $. Hence, this scheme does preserve the equilibrium.
+		
+		\item  Consider expanding the last term upto $ \order{\Delta x} $,
+		\begin{equation}\label{key}
+		\dfrac{\Delta t}{\Delta x} \qty(q(x_0,t_0) - e^{\Delta x} q (x_0 - \Delta x, t_0)) = \dfrac{\Delta t}{\Delta x} \qty[({\Delta x}) q (x_0 , t_0) ] = \Delta t q(x_0 , t_0) \qq{,}
+		\end{equation}
+		which is the last term in the original scheme.
+		
 	\end{enumerate}
 
 \end{homeworkProblem}
@@ -347,7 +386,12 @@
 \begin{homeworkProblem}[7]
 	\textbf{Shocks}
 	\begin{enumerate}
-		\item 
+		\item Let us imagine integrating in an interval $ \{x_1, x_2 \} $ in $ x $ and $ \{t_1, t_2\} $ in $ t $ which has the shock. We then write,
+		\begin{align}\label{key}
+		 \int_{x_1}^{x_2} \int_{t_1}^{t_2} \dd x \dd t  \partial_t q &= - \int_{t_1}^{t_2}  \int_{x_1}^{x_2} \dd t \dd x  \partial_x f(q) \\
+		 \Delta x (q_L - q_R) &= - \Delta t (f_R - f_L) \\
+		 \therefore V_s (q_R-q_L) &= f_R - f_L
+		\end{align}
 		
 		\item 
 		\begin{equation}\label{key}
@@ -355,7 +399,11 @@
 		\end{equation}
 		which is the Burgers equation.
 		
-		\item ds
+		\item Using the Rankine-Hugoniot conditions for the $ n $-dependent conservation law,
+		\begin{equation}\label{key}
+		V_s (q_R^n - q_L^n) = \dfrac{n}{n+1 }\qty(q_R^{n+1 } - q_L^{N+1}) \implies V_s = \dfrac{n}{n+1 }\dfrac{q_R^{n+1 } - q_L^{n+1}}{q_R^n - q_L^n} \qq{,}
+		\end{equation}
+		which would generically depend on $ n $.
 	\end{enumerate}
 
 
@@ -373,7 +421,24 @@
 		q^{n+1}_i = q^n_i = \dfrac{\Delta t}{\Delta x} \qty(f^n_{i - 1/2} - f^n_{i+ 1/2})
 		\end{equation}
 		
+		\item Integrating the conservation law within the given limits,
+		\begin{align}\label{key}
+		\int_{x_{i-1/2}}^{x_{i+1/2}} \dd{x} \qty(q(x,t^{n+1}) - q(x,t^{n})) &= \int_{t^n}^{t^{n+1}} \dd{t} \qty(f(x_{i+1/2},t) -f(x_{i-1/2},t))  \\
+		\implies \hat{q}^{n+1}_i &= \hat{q}^{n}_i + \dfrac{\Delta t}{\Delta x} (f^n_{i-1} - f^n_{i + 1/2})
+ 		\end{align}
+		
+		\item One can see that for the two schemes to match,
+		\begin{equation}\label{key}
+		f^n_{i - 1/2} - f^n_{i+1/2 } = f^n_{i - 1} - f^{i } \implies f^n_{i - 1/2} = f^n_{i - 1} \qq{and} f^n_{i + 1/2} = f^n_{i }
+		\end{equation}
+		Also, consider,
+		\begin{align}\label{key}
+		f^n_{i + 1/2} - f^n_{i } &= f'^n_i \Delta x + f'^n_i \dfrac{\Delta x^2 }{2}\\
+		f^n_{i - 1/2} - f^n_{i-1} &= f'^n_i \Delta x + f'^n_i \dfrac{\Delta x^2 }{2}
+		\end{align}
 		\item 
+		
+		 
 	\end{enumerate}
 \end{homeworkProblem}
 
