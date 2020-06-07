@@ -235,21 +235,25 @@
 		
 		\item Substituting $ f\qty(\dfrac{x-vt}{t^\alpha}) = q(\eta) $ in the modified equation and using the chain rule of differentiation,
 		\begin{align}\label{key}
-		\qty(-\dfrac{\alpha x}{t^{\alpha + 1}} + \dfrac{v (\alpha - 1)}{t^\alpha} ) q'(\eta)  + \dfrac{v}{t^\alpha} q'(\eta) = \beta \dfrac{v^2}{t^{2\alpha}} q''(\eta) \\
-		\implies - \alpha \dfrac{x-vt}{t^{\alpha + 1}} q' = \beta \dfrac{v^2}{t^{2\alpha}} q'' \implies  \beta \dfrac{v^2}{t^{2\alpha}} q'' + \alpha \dfrac{\eta}{t} q' = 0
+		\qty(-\dfrac{\alpha x}{t^{\alpha + 1}} + \dfrac{v (\alpha - 1)}{t^\alpha} ) q'(\eta)  + \dfrac{v}{t^\alpha} q'(\eta) = \beta \dfrac{1}{t^{2\alpha}} q''(\eta) \\
+		\implies - \alpha \dfrac{x-vt}{t^{\alpha + 1}} q' = \beta \dfrac{1}{t^{2\alpha}} q'' \implies  \beta \dfrac{1}{t^{2\alpha}} q'' + \alpha \dfrac{\eta}{t} q' = 0
 		\end{align}
 
 		For $  \alpha = 1/2$, the equation,
 		\begin{equation}\label{key}
-		\beta\dfrac{v^2}{t} q'' + \dfrac{\eta}{2t} q' = 0 \implies \beta{v^2} q'' + \dfrac{\eta}{2} q' = 0  \qq{as}  t>0
+		\beta\dfrac{1}{t} q'' + \dfrac{\eta}{2t} q' = 0 \implies \beta q'' + \dfrac{\eta}{2} q' = 0  \qq{as}  t>0
 		\end{equation}
 		Assuming $ q'(\eta)  = h(\eta) $,
 		\begin{align}\label{key}
-		\beta{v^2} h' + \dfrac{\eta}{2} h = 0  &\implies h(\eta) = q'(\eta) = C_1 \exp(-\dfrac{\eta}{2\beta v^2}) \\
-		& \implies q(\eta ) = C_1 \int \dd \eta \exp(-\dfrac{\eta}{2\beta v^2}) \qq{.} 
+		\beta h' + \dfrac{\eta}{2} h &= 0  \\
+		\implies \dfrac{\dd h}{h} &=  - \dfrac{\eta}{2 \beta} \dd{\eta}\\
+		\implies h &= C_1\exp( - \dfrac{\eta^2}{4 \beta}) \\
+		\implies q &= C_1 \sqrt{\pi \beta} \erf\qty(\dfrac{\eta}{2 \sqrt{\beta}}) + C_2 \\
+		&= C_1 \sqrt{\pi \beta} \erf\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) + C_2 \\
+		q &= C_1 \sqrt{\pi \beta} \qty[1 - \text{erfc}\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) ]+ C_2 \\
+		q &=  C_3 \ \text{erfc}\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) + C_4
 		\end{align}
-		The Gaussian integral is in fact the error function.
-		\item  
+		\item  We should have the following limits in mind from the definition of erfc -- erfc$ (\infty ) = 0$ and erfc$( -\infty )  = 2$. We are given that $ q(x,0)= 2 $ for $ x<0 $ and $ q(x,0)=0 $ for $ x>0 $. For $ x>0 $, $ \eta \rightarrow \infty $ as $ t \rightarrow 0 $ and $ x<0 $, $ \eta \rightarrow -\infty $ as $ t \rightarrow 0 $. This fixes the value of $ C_3 = 1 $ and $ C_4=0 $. Hence, $ q(x,t) = \text{erfc}\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) $ solves the modified equation exactly.
 		\item 
 	\end{enumerate}
 \end{homeworkProblem}
