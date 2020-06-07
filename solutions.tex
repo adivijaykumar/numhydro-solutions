@@ -321,6 +321,42 @@
 
 \begin{homeworkProblem}[4]
 	\textbf{Vacuum part 1}
+	\begin{enumerate}
+		\item Given,
+		\begin{equation}\label{key}
+		\partial_t \vb{q} + \partial_x \vb{f}(\vb{q}) = 0 \implies \partial_t \vb{q} + \vb{f}'(\vb{q})\partial_x (\vb{q}) = 0 
+		\end{equation}
+		Changing variables to $ \xi = x/t $, we get,
+		\begin{equation}\label{key}
+		 \qty(-\dfrac{x}{t^2}) \partial_\xi \vb{q } + \dfrac{1}{t}\vb{f}'(\vb{q})\partial_\xi \vb{q}   = 0 \implies \partial_\xi q \qty(\vb{f}'(\vb{q}) - \xi I) = 0 \qq{.}
+		\end{equation}
+		This tells us that a self-similar solution will exist if $ \xi  $ is an eigenvalue of $ J = \vb{f}'(\vb{q})  $.
+		
+		\item The equation of state is given by,
+		\begin{equation}\label{key}
+		 p = \rho e (\gamma - 1) = (\gamma -1 ) \qty(E - \dfrac{\rho v ^2}{2}) = (\gamma -1 ) \qty(E - \dfrac{S ^2}{2\rho})
+		\end{equation}
+		Using these, one can write, 
+		\begin{equation}\label{key}
+		\vb{f}(\vb{q}) = \mqty[S & \dfrac{S^2}{\rho} \dfrac{3 - \gamma}{2} + (\gamma -1 ) E & \dfrac{ES}{\rho`} \gamma - (\gamma -1 ) \qty(\dfrac{S^3}{2\rho^2}) ]^T
+		\end{equation} 
+		
+		
+		 $ J = \pdv{\vb{f}}{\vb{q}} $ is given by,
+		\begin{equation}\label{key}
+		J=\mqty[0 & 1 & 0\\ -(3-\gamma)\dfrac{S^2}{2\rho^2}  & (3 - \gamma )  \dfrac{S}{\rho}& \gamma - 1 \\ - \dfrac{ES}{\rho^2} \gamma + \dfrac{S^3}{\rho^3} (\gamma -1 )& \dfrac{E}{\rho`} \gamma - (\gamma -1 ) \qty(\dfrac{3S^2}{2\rho^2}) & \gamma \dfrac{S}{\rho}]
+		\end{equation} 
+		Using Mathematica to diagonalize $ J $ and substituting $ S= \rho v $ and $ E $ in terms of $ v $, we get the eigenvalues $ v $ and $ v \pm c_s $, where $ c_s^2 = \frac{\gamma p}{\rho} $
+		\item
+		
+		\item 
+		
+		\item 
+		
+		\item 
+		
+		\item 
+	\end{enumerate}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}[5]
@@ -405,7 +441,7 @@
 		
 		\item Using the Rankine-Hugoniot conditions for the $ n $-dependent conservation law,
 		\begin{equation}\label{key}
-		V_s (q_R^n - q_L^n) = \dfrac{n}{n+1 }\qty(q_R^{n+1 } - q_L^{N+1}) \implies V_s = \dfrac{n}{n+1 }\dfrac{q_R^{n+1 } - q_L^{n+1}}{q_R^n - q_L^n} \qq{,}
+		V_s (q_R^n - q_L^n) = \dfrac{n}{n+1 }\qty(q_R^{n+1 } - q_L^{n+1}) \implies V_s = \dfrac{n}{n+1 }\dfrac{q_R^{n+1 } - q_L^{n+1}}{q_R^n - q_L^n} \qq{,}
 		\end{equation}
 		which would generically depend on $ n $.
 	\end{enumerate}
