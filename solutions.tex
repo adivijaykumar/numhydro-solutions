@@ -9,10 +9,16 @@
 \usepackage{tikz}
 \usepackage{physics}
 \usepackage[plain]{algorithm}
+\usepackage{hyperref}
 \usepackage{algpseudocode}
 \usepackage[makeroom]{cancel}
 \usetikzlibrary{automata,positioning}
-
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
 %
 % Basic Document Settings
 %
@@ -96,7 +102,7 @@
 %
 
 \newcommand{\hmwkTitle}{}
-\newcommand{\hmwkDueDate}{ICTS Summer School on Gravitational-wave Astronomy}
+\newcommand{\hmwkDueDate}{ICTS Summer School on Gravitational-wave Astronomy 2020}
 \newcommand{\hmwkClass}{Numerical Hydrodynamics - Solutions}
 \newcommand{\hmwkClassTime}{}
 \newcommand{\hmwkClassInstructor}{Professor Isaac Newton}
@@ -147,6 +153,7 @@
 
 \maketitle
 
+{Note : The problems can be found }\href{https://github.com/IanHawke/icts-2020/tree/master/pdfs}{here}. Some of the solutions are incomplete.
 
 \section{\underline{Numerical Theory}}
 \begin{homeworkProblem}[1]
@@ -254,7 +261,7 @@
 		q &=  C_3 \ \text{erfc}\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) + C_4
 		\end{align}
 		\item  We should have the following limits in mind from the definition of erfc -- erfc$ (\infty ) = 0$ and erfc$( -\infty )  = 2$. We are given that $ q(x,0)= 2 $ for $ x<0 $ and $ q(x,0)=0 $ for $ x>0 $. For $ x>0 $, $ \eta \rightarrow \infty $ as $ t \rightarrow 0 $ and $ x<0 $, $ \eta \rightarrow -\infty $ as $ t \rightarrow 0 $. This fixes the value of $ C_3 = 1 $ and $ C_4=0 $. Hence, $ q(x,t) = \text{erfc}\qty(\dfrac{x-vt}{ \sqrt{4 \beta t}}) $ solves the modified equation exactly.
-		\item 
+		\item \textcolor{blue}{To be solved}
 	\end{enumerate}
 \end{homeworkProblem}
 
@@ -320,7 +327,9 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}[4]
-	\textbf{Vacuum part 1}
+	\textbf{Vacuum part 1}\\
+	\textit{Note : The Mathematica notebook for parts of this problem can be found in the repository}
+	
 	\begin{enumerate}
 		\item Given,
 		\begin{equation}\label{key}
@@ -343,19 +352,32 @@
 		
 		
 		 $ J = \pdv{\vb{f}}{\vb{q}} $ is given by,
+		\begin{align}\label{key}
+		J&=\mqty[0 & 1 & 0\\ -(3-\gamma)\dfrac{S^2}{2\rho^2}  & (3 - \gamma )  \dfrac{S}{\rho}& \gamma - 1 \\ - \dfrac{ES}{\rho^2} \gamma + \dfrac{S^3}{\rho^3} (\gamma -1 )& \dfrac{E}{\rho} \gamma - (\gamma -1 ) \qty(\dfrac{3S^2}{2\rho^2}) & \gamma \dfrac{S}{\rho}] \\
+		&=\mqty[0 & 1 & 0\\ -(3-\gamma)\dfrac{v^2}{2}  & (3 - \gamma )  v& \gamma - 1 \\  -\qty(\dfrac{p}{\rho(\gamma -1 )} + \dfrac{v^2}{2}) v \gamma + v^3 (\gamma -1 )& \qty(\dfrac{p}{\rho(\gamma -1 )} + \dfrac{v^2}{2}) \gamma - (\gamma -1 ) \qty(\dfrac{3v^2}{2}) & \gamma v] \\
+		&=\mqty[0 & 1 & 0\\ -(3-\gamma)\dfrac{v^2}{2}  & (3 - \gamma )  v& \gamma - 1 \\  -\qty(\dfrac{c_s^2}{(\gamma -1 )} + \gamma\dfrac{v^2}{2}) v  + v^3 (\gamma -1 )& \qty(\dfrac{c_s^2}{(\gamma -1 )} + \gamma \dfrac{v^2}{2})  - (\gamma -1 ) \qty(\dfrac{3v^2}{2}) & \gamma v] \\
+		&=\mqty[0 & 1 & 0\\ (\gamma - 3)\dfrac{v^2}{2}  & (3 - \gamma )  v& \gamma - 1 \\  -\dfrac{c_s^2v}{\gamma -1 }    + \dfrac{v^3 }{2}(\gamma -2 )& \dfrac{c_s^2}{\gamma -1 }  + \dfrac{3 - 2\gamma}{2}v^2 & \gamma v]
+		\end{align} 
+		We have used $ \dfrac{E}{\rho } = \dfrac{p}{\rho(\gamma - 1)}  + \dfrac{v^2}{2} $ and $ \dfrac{S}{\rho} = v $. The characteristic polynomial corresponding to this Jacobian is,
 		\begin{equation}\label{key}
-		J=\mqty[0 & 1 & 0\\ -(3-\gamma)\dfrac{S^2}{2\rho^2}  & (3 - \gamma )  \dfrac{S}{\rho}& \gamma - 1 \\ - \dfrac{ES}{\rho^2} \gamma + \dfrac{S^3}{\rho^3} (\gamma -1 )& \dfrac{E}{\rho`} \gamma - (\gamma -1 ) \qty(\dfrac{3S^2}{2\rho^2}) & \gamma \dfrac{S}{\rho}]
-		\end{equation} 
-		Using Mathematica to diagonalize $ J $ and substituting $ S= \rho v $ and $ E $ in terms of $ v $, we get the eigenvalues $ v $ and $ v \pm c_s $, where $ c_s^2 = \frac{\gamma p}{\rho} $
-		\item
+		\frac{\gamma  \lambda  c_s^2}{\gamma -1}-\frac{\lambda  c_s^2}{\gamma -1}+\frac{v c_s^2}{\gamma -1}-\frac{\gamma  v c_s^2}{\gamma -1}-\lambda ^3-3 \lambda  v^2+v^3+3 \lambda ^2 v= 0
+		\end{equation}
 		
-		\item 
 		
-		\item 
+		Using Mathematica to diagonalize $ J $ and substituting $ S= \rho v $ and $ E $ in terms of $ v $, we get the eigenvalues $ v $ and $ v \pm c_s $, where $ c_s^2 = \frac{\gamma p}{\rho} $. The eigenvectors are,
+		\begin{align}\label{key}
+		\left(\frac{2}{v^2},\frac{2}{v},1\right) \qq{,} \left(\frac{2 (\gamma -1)}{-2 (\gamma -1) v c_s+2 c_s^2+(\gamma -1) v^2},\frac{2 (\gamma -1) \left(v-c_s\right)}{-2 (\gamma -1) v c_s+2 c_s^2+(\gamma -1) v^2},1\right) \qq{and}\\
+		\left(\frac{2 (\gamma -1)}{2 (\gamma -1) v c_s+2 c_s^2+(\gamma -1) v^2},\frac{2 (\gamma -1) \left(c_s+v\right)}{2 (\gamma -1) v c_s+2 c_s^2+(\gamma -1) v^2},1\right)
+		\end{align}
+		\item \textcolor{blue}{To be solved}
 		
-		\item 
+		\item  \textcolor{blue}{To be solved}
 		
-		\item 
+		\item  \textcolor{blue}{To be solved}
+		
+		\item  \textcolor{blue}{To be solved}
+		
+		\item  \textcolor{blue}{To be solved}
 	\end{enumerate}
 \end{homeworkProblem}
 
@@ -371,7 +393,18 @@
 		S^{-1}\pdv{\vb{w}}{t}+ J S^{-1}\pdv{\vb{w}}{x} = 0  \implies \pdv{\vb{w}}{t}+ S J S^{-1}\pdv{\vb{w}}{x} = 0  \implies \pdv{\vb{w}}{t}+ \Lambda\pdv{\vb{w}}{x} = 0 
 		\end{equation}
 		
-		\item 
+		\item Solved in Problem 4, Part 2.
+		
+		\item  Solved in Problem 4, Part 2.
+		
+		\item Taking $ c_s \rightarrow 0 $ in the expression for the eigenvectors,
+		\begin{equation}\label{key}
+		\vb{r}_\pm = \mqty[1 & v & \dfrac{\gamma +2 }{\gamma -1}\dfrac{v^2}{2}]^T \implies \vb{r}_+ = \vb{r}_- \qq{,}
+		\end{equation}
+		which means that the eigenvectors are degenerate corresponding to degenerate eigenvalues. Hence, the eigenvectors now do not form a complete basis for the system and the jacobian is singular.
+		
+		\item  \textcolor{blue}{To be solved}
+		
 	\end{enumerate}
 \end{homeworkProblem}
  
@@ -462,9 +495,9 @@
 		\end{equation}
 		
 		\item Integrating the conservation law within the given limits,
-		\begin{align}\label{key}
+		\begin{align}\label{tel}
 		\int_{x_{i-1/2}}^{x_{i+1/2}} \dd{x} \qty(q(x,t^{n+1}) - q(x,t^{n})) &= \int_{t^n}^{t^{n+1}} \dd{t} \qty(f(x_{i+1/2},t) -f(x_{i-1/2},t))  \\
-		\implies \hat{q}^{n+1}_i &= \hat{q}^{n}_i + \dfrac{\Delta t}{\Delta x} (f^n_{i-1} - f^n_{i + 1/2})
+		\implies \hat{q}^{n+1}_i &= \hat{q}^{n}_i + \dfrac{\Delta t}{\Delta x} (f^n_{i-1/2} - f^n_{i + 1/2})
  		\end{align}
 		
 		\item One can see that for the two schemes to match,
@@ -476,7 +509,17 @@
 		f^n_{i + 1/2} - f^n_{i } &= f'^n_i \Delta x + f'^n_i \dfrac{\Delta x^2 }{2}\\
 		f^n_{i - 1/2} - f^n_{i-1} &= f'^n_i \Delta x + f'^n_i \dfrac{\Delta x^2 }{2}
 		\end{align}
-		\item 
+		\item  First, we just sum the above obtained scheme from eq \ref{tel} over $ i = 0, \ldots , N $. One obtains,
+		\begin{align}\label{key}
+		\sum_{i = 0}^{N}\hat{q}^{n+1}_i &=\sum_{i = 0}^{N} \hat{q}^{n}_i + \sum_{i = 0}^{N}  \dfrac{\Delta t}{\Delta x} (f^n_{i-1/2} - f^n_{i + 1/2})\\
+		\sum_{i = 0}^{N}\hat{q}^{n+1}_i &=\sum_{i = 0}^{N} \hat{q}^{n}_i +  \dfrac{\Delta t}{\Delta x} (f^n_{-1/2} - f^n_{N+ 1/2})\\
+		\sum_{i = 0}^{N}\hat{q}^{n+1}_i &=\sum_{i = 0}^{N} \hat{q}^{n}_i +  \dfrac{\Delta t}{\Delta x} (f_L - f_R)  \qq{.} 
+		\end{align}
+		Next, we integrate the conservation law over the interval $ \qty[x_L, x_R]  $,
+		\begin{equation}\label{key}
+		\int_{x_L}^{x_R} \dd{x} \partial_x f= f_R - f_L   \qq{.}
+		\end{equation}
+		These suggest that the direct integration  as well as the scheme we have obtained depends on the difference of the flux across the boundaries.
 		
 		 
 	\end{enumerate}
@@ -485,6 +528,21 @@
 
 \begin{homeworkProblem}[9]
 	\textbf{Monotonicity}
+	\begin{enumerate}
+		\item \textcolor{blue}{To be solved}
+		
+		\item The scheme being monotone means it is non-decreasing in all of its arguments. We are given that $ U^n_i \le V^n_i $ and $ G\qty(U^n_{j-1},U^n_j,U^n_{j+1})  \le G\qty(V^n_{j-1},V^n_j,V^n_{j+1})$ directly follows from the monotone property.
+		
+		
+		\item  Outside the stencil, $ V $ matches $ U $ and hence $ G\qty(U^n_{j-1},U^n_j,U^n_{j+1})  = G\qty(V^n_{j-1},V^n_j,V^n_{j+1}) $.
+		
+		Within the stencil, any $ V $ is always greater than or equal to any $ U $, and hence $ G\qty(U^n_{j-1},U^n_j,U^n_{j+1})  \le G\qty(V^n_{j-1},V^n_j,V^n_{j+1}) $.
+		
+		For any $ V $ within the stencil, the maximum value is $ \max_{k \in S_j} U_k^n = \alpha $, which in turn implies that $ G\qty(V^n_{j-1},V^n_j,V^n_{j+1})  \le \alpha $. 
+		
+		Hence $ G\qty(U^n_{j-1},U^n_j,U^n_{j+1})  \le G\qty(V^n_{j-1},V^n_j,V^n_{j+1}) \le \alpha $.
+		 
+	\end{enumerate}
 \end{homeworkProblem}
 
 
